@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'MYWIKI.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# AUTH_USER_MODEL = 'User.User'
+AUTH_USER_MODEL = 'User.User'
 
 DATABASES = {
     'default': {
