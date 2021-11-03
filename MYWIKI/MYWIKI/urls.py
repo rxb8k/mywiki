@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
+import sys
+sys.path.append("..")
 from User import views
 
 urlpatterns = [
@@ -26,6 +28,9 @@ urlpatterns = [
     path('user/signup', views.signup_view, name="signup"),
     path('user/login', views.login_view, name="login"),
     path('user/logout', views.logout_view, name="logout"),
+
+    #path('read/<str:id>/', , name="read"),
+    #path('update/<str:id>', , name="update")
     
 ]
 

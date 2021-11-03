@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib import auth
-from .models import User
+from django.contrib.auth.models import User
+from Profile.models import Profile, Row
 from django.contrib.auth.decorators import login_required
 
 def home(request):
@@ -17,10 +18,31 @@ def signup_view(request):
             )
             user.save()
             auth.login(request, user)
-            return redirect('/user/login')
+
+            new_profile = Profile()
+            new_profile.username=user
+
+            row_aboutme = Row()
+            row_aboutme.profile = new_profile
+            row_aboutme.subject = "About me"
+            row_aboutme.content = ""
+
+            row_aboutme1 = Row()
+            row_aboutme1.profile = new_profile
+            row_aboutme1.subject = "About me1"
+            row_aboutme1.content = ""
+
+            row_aboutme2 = Row()
+            row_aboutme2.profile = new_profile
+            row_aboutme2.subject = "About me2"
+            row_aboutme2.content = ""
+
+            new_profile.save()
+
+            return redirect('/update/'+str(request.POST['username']))# update 페이지로 redirect
     else:
         res_data['error'] = '비밀번호가 다릅니다.'
-    return render(request, '.html', res_data)
+    return render(request, '회원가입파일이름.html', res_data)
 
 #로그인
 def login_view(request):
@@ -31,8 +53,8 @@ def login_view(request):
         print(User)
         if User is not None:
             auth.login(request, User)
-            return redirect('/')
-    return render(request, '.html')
+            return redirect('/read/'+str(username)) # read 페이지로 redirect
+    return render(request, '로그인파일이름.html') 
 
 #로그아웃
 @login_required
