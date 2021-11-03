@@ -5,7 +5,7 @@ from Profile.models import Profile, Row
 from django.contrib.auth.decorators import login_required
 
 def home(request):
-    return render(request, '.html')
+    return render(request, 'mainpage1.html')
 
 #회원가입
 def signup_view(request):
@@ -42,7 +42,7 @@ def signup_view(request):
             return redirect('/update/'+str(request.POST['username']))# update 페이지로 redirect
     else:
         res_data['error'] = '비밀번호가 다릅니다.'
-    return render(request, '회원가입파일이름.html', res_data)
+    return render(request, 'signup.html', res_data)
 
 #로그인
 def login_view(request):
@@ -54,7 +54,7 @@ def login_view(request):
         if User is not None:
             auth.login(request, User)
             return redirect('/read/'+str(username)) # read 페이지로 redirect
-    return render(request, '로그인파일이름.html') 
+    return render(request, 'login.html') 
 
 #로그아웃
 @login_required
