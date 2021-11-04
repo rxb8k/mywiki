@@ -1,1 +1,59 @@
-/* 빈 코드 */
+@font-face {
+  font-family: "DungGeunMo";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: "DungGeunMo";
+}
+
+body {
+  margin: 0;
+}
+
+
+a {
+  text-decoration: none;
+}
+
+/*main*/
+#main {
+  display: flex;
+  justify-content: center;
+}
+
+.section {
+  width: 70%;
+  padding: 20px;
+}
+
+.article {
+  height: 150px;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+
+
+/*header*/
+.header {
+  text-align: center;
+  color: black;
+  padding: 15px;
+}
+/* button */
+.report_bt {
+  float: right;
+  width: 150px;
+  height: 100px;
+  border: 0;
+}
+
+
+
+
+
+

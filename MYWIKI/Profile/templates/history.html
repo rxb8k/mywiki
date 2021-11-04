@@ -1,0 +1,35 @@
+<!-- nav바에서 기록보기를 눌렀을때 뜨는 사이트 -->
+<style>
+  table {
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    border: 1px solid gray;
+  }
+</style>
+
+<button onclick="add_row()">행 추가하기</button>
+
+<hr>
+<table>
+  <thead>
+    <th>item</th>
+    <th>datetime</th>
+  </thead>
+  <tbody id="my-tbody"></tbody>
+</table>
+
+<script>
+  function add_row() {
+    var my_tbody = document.getElementById('my-tbody');
+    // var row = my_tbody.insertRow(0); // 상단에 추가
+    var row = my_tbody.insertRow(my_tbody.rows.length); // 하단에 추가
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    cell1.innerHTML = 'HELLO world'; //여기다가 user id나 ip를 뿌리고 싶음
+    cell2.innerHTML = new Date().toUTCString();
+  }
+
+</script>

@@ -1,66 +1,44 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="base.css" />
-        <link rel="stylesheet" href="edit.css" />
-        <title>나의위키</title>
-    </head>
 
-    <body>
-        <header class="header">
-            <h1>나의위키</h1>
-        </header>
-        <nav class="navbar">
-            <a href="" id="home">나의위키</a>
-            <a href="">내 프로필</a>
-            <a href="">기록 보기</a>
-            <a href="">로그 아웃</a>
-        </nav>
-        <div id="main">
-            <section class="section">
-                <h2>About Me</h2>
-                <article class="article">
-                    <textarea name="aboutme" id="aboutme" cols="90" rows="8">
-about me에 관한 내용
-        </textarea
-                    >
-                </article>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'css/base.css %}" />
+  <title>나의위키</title>
+</head>
 
-                <h2>My Character</h2>
-                <article class="article">
-                    <textarea name="aboutme" id="aboutme" cols="90" rows="8">
-my Character에 관한 내용
-        </textarea
-                    >
-                </article>
+<body>
 
-                <h2>My Mbti</h2>
-                <article class="article">
-                    <textarea name="aboutme" id="aboutme" cols="90" rows="8">
-my MBTI에 관한 내용</textarea
-                    >
-                </article>
-            </section>
-        </div>
-        <div class="edit_bt">
-            <button type="button">
-                <img src="./edit.png" alt="" width="150px" />
-            </button>
-        </div>
-        <div class="share_bt">
-            <button type="button">
-                <img src="./share.png" alt="" width="150px" />
-            </button>
-        </div>
+  <nav class="navbar">
+    <div>
+      <a class="navbar_logo" href="{% url 'mainpage' %}"><img src="{% static 'img/logo.png' %}"></a>
+    </div>
+    {% if user.is_authenticated %}
+    <a href="{% url 'read.html' %}" class="navitem">내 프로필</a>
+    <a href="{% url 'history.html'%}" class="navitem">기록 보기</a>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <a href="{% url 'logout.html' %}">로그 아웃</a>
+    {% endif %}
+    {% if not user.is_authenticated %}
+    <a href="{% url 'login.html'%}">로그인</a>
+    {% endif %}
+  </nav>
+  <script>
+    const currentLocation = location.href;
+    const navItem = document.querySelectorAll('.navitem');
+    const navLength = navItem.length;
+    for (let i = 0; i < navLength; i++) {
+      if (navItem[i].href === currentLocation) {
+        navItem[i].className = "navitem active"
+      }
+    }
+  </script>
 
-        <footer>
-            <a href="" target="_blank">
-                2021 멋쟁이사자처럼 단풍톤<br />
-                나의위키 team</a
-            >
-        </footer>
-    </body>
+
+</body>
+
 </html>
