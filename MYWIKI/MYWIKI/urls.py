@@ -20,17 +20,14 @@ from django.conf import settings
 import sys
 sys.path.append("..")
 from User import views
+from django.urls.conf import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name="home"),
-    
-    path('user/signup', views.signup_view, name="signup"),
-    path('user/login', views.login_view, name="login"),
-    path('user/logout', views.logout_view, name="logout"),
 
-    #path('read/<str:id>/', , name="read"),
-    #path('update/<str:id>', , name="update")
+    path('profile/', include('Profile.urls')),
+    path('user/', include('User.urls'))
     
 ]
 
