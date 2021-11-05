@@ -1,33 +1,45 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>로그인 페이지</title>
-</head>
+    <head>
+        <meta charset="UTF-8" />
+        <title>로그인 페이지</title>
+    </head>
 
-<body>
-    <div id="app">
+    <body>
+        <div id="app">
+            <div id="head">
+                <p>LOGIN</p>
+            </div>
 
-        <div id="head">
-            <p>LOGIN</p>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div id="form_box">
+                    <label for="username">ID</label>
+                    <input
+                        id="username"
+                        type="text"
+                        name="username"
+                        placeholder="ID"
+                    />
+                </div>
+                <div id="form_box">
+                    <label for="password">PW</label>
+                    <input
+                        id="password"
+                        type="password"
+                        name="password"
+                        placeholder="PASSWORD"
+                    />
+                </div>
+                <div id="form_box">
+                    <input type="submit" value="로그인" class="submit-btn" />
+                </div>
+                <div id="form_box">
+                    <input type="submit" value="회원가입" class="submit-btn" />
+                </div>
+            </form>
         </div>
-        
-        <form action="" method="post">
-            <div id="form_box">
-                <label for="username">ID</label>
-                <input id="username" type="text" name="username" placeholder="ID">
-            </div>
-            <div id="form_box">
-                <label for="password">PW</label>
-                <input id="password" type="password" name="password" placeholder="PASSWORD">
-            </div>
-            <div id="form_box">
-                <input type="submit" value="로그인" class="submit-btn">
-            </div>
-            <div id="form_box">
-                <input type="submit" value="회원가입" class="submit-btn">
-            </div>
-        </form>
-    </div>
-</body>
+    </body>
 </html>

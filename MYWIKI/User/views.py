@@ -1,8 +1,10 @@
 from django.shortcuts import redirect, render
 from django.contrib import auth
-from django.contrib.auth.models import User
+from .models import User
 from Profile.models import Profile, Row
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 def home(request):
     return render(request, 'mainpage1.html')
@@ -13,14 +15,14 @@ def signup_view(request):
     if request.method =='POST':
         if request.POST['password1'] == request.POST['password2']:
             user = User.objects.create_user(
-            username = request.POST['username'], 
-            password=request.POST['password1'], 
+                username = request.POST['username'], 
+                password=request.POST['password1'], 
             )
             user.save()
             auth.login(request, user)
 
             new_profile = Profile()
-            new_profile.username=user
+            new_profile.username=user.username
 
             row_aboutme = Row()
             row_aboutme.profile = new_profile

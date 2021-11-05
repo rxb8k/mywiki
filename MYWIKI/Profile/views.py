@@ -20,22 +20,12 @@ def view_history(request, id):
 
     return render(request, 'history.html', {'profile': profile, 'histories': histories})
 
-# def update(request):
 
-
-
-    
-def marketPost_edit(req, id):
-    marketPost_object=get_object_or_404(marketPost, pk=id)
+def update(req):
+    profile_obejct=get_object_or_404(Profile, pk=id)
     if req.method=='POST':
-        marketPost_object.title=req.POST['title']
-        marketPost_object.body=req.POST['content']
-        marketPost_object.image=req.POST['image']
-        marketPost_object.writer=req.user #수정에도 들어가나?
-        marketPost_object.hashtag=req.POST['hashtag']
-        
-        marketPost_object.state=req.POST['state']
-        marketPost_object.price=req.POST['price']
-        marketPost_object.save()
-        return redirect('/board/market/'+str(marketPost.id))
-    return render(req,'11market_edit.html',{'data':marketPost_object})
+        # profile_object 각각 변수 설정
+        # marketPost_object.title=req.POST['title']
+        profile_obejct=req.getParameterValues("")
+        return redirect('/update'+str(Profile.username))
+    return render(req, 'update.html', {'data':profile_object}
