@@ -54,6 +54,23 @@
   <link rel="stylesheet" href="{% static 'css/photo.css' %}" />
   <link rel="stylesheet" href="{% static 'css/update.css' %}" />
 </head>
+<style>
+  #first {
+    margin: 0 auto;
+    width: 300px;
+    margin-top: 200px;
+
+  }
+
+  #first>table {
+    height: 400px;
+    width: 300px;
+  }
+
+  #form {
+    margin-bottom: 200px;
+  }
+</style>
 
 <body>
   <!-- 네비게이션 -->
@@ -87,90 +104,68 @@
 
 
   <!-- 사진 업로드 -->
-  <div class="container">
-    <div class="image-upload" id="image-upload">
-      <form method="post" enctype="multipart/form-data">
-        <div class="button">
-          <label for="chooseFile">사진 : </label>
-        </div>
-        <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)"
-          value="{{profile.image}}" />
-      </form>
 
-      <div class="fileContainer">
-        <div class="fileInput">
-          <p>FILE NAME:</p>
-          <p id="fileName"></p>
-        </div>
-        <div class="buttonContainer">
-          <div class="submitButton" id="submitButton">Upload</div>
-        </div>
-      </div>
-    </div>
-    <div class="image-show" id="image-show"></div>
-  </div>
-
-  <form>
-    <input type="text" class="profile_txt" />
-    <button class="btn_submit">추가</button>
-  </form>
   <ul class="profile_list"></ul>
   </section>
 
 
+  <div id="first">
 
-  <form id="form" onsubmit="" method="POST" action="{% url 'update' profile.id %}">
-    <!--플러스 버튼을 누르면 row 행 추가 되야-->
-    {%csrf_token%}
+
+    <form id="form" onsubmit="" method="POST" action="{% url 'update' profile.id %}">
+      <!--플러스 버튼을 누르면 row 행 추가 되야-->
+      {%csrf_token%}
       <tr>
         <th>subject</th>
         <th>content</th>
       </tr>
       <tr class="item1">
-          <td>이름 입력💭</td>
+        <td>이름 입력💭</td>
         <td><input type="text" name="name" value="{{profile.name}}" /></td>
       </tr>
       <tr class="item2">
         <td>생일 입력🎂</td>
-        <td><input type="text" name="bdate" value="{{profile.bdate}}"/>
-      </td>
-          </tr>
+        <td><input type="text" name="bdate" value="{{profile.bdate}}" />
+        </td>
+      </tr>
       <tr class="item3">
         <td>출생지🌐
         </td>
-        <td><input type="text" name="bplace" value="{{profile.bplace}}"/></td>
+        <td><input type="text" name="bplace" value="{{profile.bplace}}" /></td>
       </tr>
       <tr class="item4">
         <td>소속🏛
         </td>
         <td>
-            <input type="text" name="organ" value="{{profile.organ}}"/></td>
+          <input type="text" name="organ" value="{{profile.organ}}" />
+        </td>
       </tr>
       <tr class="item5">
         <td>mbti♥️
         </td>
-        <td><input type="text" name="mbti" value="{{profile.mbti}}"/></td>
+        <td><input type="text" name="mbti" value="{{profile.mbti}}" /></td>
       </tr>
       <tr class="item6">
         <td>가치관💭
         </td>
-        <td><input type="text" name="message" value="{{profile.message}}"/></td>
+        <td><input type="text" name="message" value="{{profile.message}}" /></td>
       </tr>
       <tr class="item7">
         <td>SNS📱
         </td>
         <td>
-          <input type="text" name="sns" value="{{profile.sns}}"/></td>
+          <input type="text" name="sns" value="{{profile.sns}}" />
+        </td>
       </tr>
-    </table>
-  방명록
-  <input type="text" name="topic_content" value="{{profile.topic_content}}"/></td>
+      </table>
+      방명록
+      <input type="text" name="topic_content" value="{{profile.topic_content}}" /></td>
 
-  <input type="submit" value="저장">
-  </form>
-      
+      <input type="submit" value="저장">
+    </form>
 
 
+  </div>
 
   <script>
     function submitForm() {

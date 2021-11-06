@@ -69,6 +69,19 @@
   <link rel="stylesheet" href="{% static 'css/photo.css' %}" />
   <link rel="stylesheet" href="{% static 'css/read.css' %}" />
 </head>
+<style>
+  #first {
+    margin: 0 auto;
+    width: 300px;
+    margin-top: 200px;
+
+  }
+
+  #first>table {
+    height: 400px;
+    width: 300px;
+  }
+</style>
 
 <body>
   <!-- 네비게이션 -->
@@ -99,58 +112,63 @@
     }
   </script>
 
-
-  <form action="">
-    <!--플러스 버튼을 누르면 row 행 추가 되야-->
-{{profile.image}}
-    <table id="profile_tb" border="1px">
-      <tr>
-        <th>subject</th>
-        <th>content</th>
-      </tr>
-      <tr class="item1">
-        <td>이름 입력💭</td>
-        <td>{{profile.name}}</td></tr>
-      </tr>
-      <tr class="item2">
-        <td>생일 입력🎂</td>
-        <td>{{profile.bdate}}</td></tr>
-      </tr>
-      <tr class="item3">
-        <td>출생지🌐
-        </td>
-        <td>{{profile.bplace}}</td>
-      </tr>
-      <tr class="item4">
-        <td>소속🏛
-        </td>
-        <td>{{profile.organ}}</td>
-      </tr>
-      <tr class="item5">
-        <td>mbti♥️
-        </td>
-        <td>{{profile.mbti}}</td>
-      </tr>
-      <tr class="item6">
-        <td>가치관💭
-        </td>
-        <td>{{profile.message}}</td>
-      </tr>
-      <tr class="item7">
-        <td>SNS📱
-        </td>
-        <td>{{profile.sns}}</td>
-      </tr>
-    </table>
-  </form>  <div class="bt_wrap">
-    <button type="submit"
-      style="border:0; width:120px; font-size: 18px; color: white; background-color: black; height: 43px;"><a
-        href="{% url 'update' profile.id %}">수정하기</a></button>
-    <button type="submit" style="border:0; outline: none; margin: 10px"><a href="#"
-        onclick="clip(); return false;">공유하기</a></button>
+  <div id="first">
+    <form action="">
+      <!--플러스 버튼을 누르면 row 행 추가 되야-->
+      {{profile.image}}
+      <table id="profile_tb" border="1px">
+        <tr>
+          <th>subject</th>
+          <th>content</th>
+        </tr>
+        <tr class="item1">
+          <td>이름 입력💭</td>
+          <td>{{profile.name}}</td>
+        </tr>
+        </tr>
+        <tr class="item2">
+          <td>생일 입력🎂</td>
+          <td>{{profile.bdate}}</td>
+        </tr>
+        </tr>
+        <tr class="item3">
+          <td>출생지🌐
+          </td>
+          <td>{{profile.bplace}}</td>
+        </tr>
+        <tr class="item4">
+          <td>소속🏛
+          </td>
+          <td>{{profile.organ}}</td>
+        </tr>
+        <tr class="item5">
+          <td>mbti♥️
+          </td>
+          <td>{{profile.mbti}}</td>
+        </tr>
+        <tr class="item6">
+          <td>가치관💭
+          </td>
+          <td>{{profile.message}}</td>
+        </tr>
+        <tr class="item7">
+          <td>SNS📱
+          </td>
+          <td>{{profile.sns}}</td>
+        </tr>
+      </table>
+    </form>
+    <div class="bt_wrap">
+      <button type="submit"
+        style="border:0; width:120px; font-size: 18px; color: white; background-color: black; height: 43px;"><a
+          href="{% url 'update' profile.id %}">수정하기</a></button>
+      <button type="submit" style="border:0; outline: none; margin: 10px"><a href="#"
+          onclick="clip(); return false;">공유하기</a></button>
+    </div>
+    방명록<br>
+    {{profile.topic_content}}
   </div>
-  방명록<br>
-  {{profile.topic_content}}
+
   <script type="text/javascript">
 
     function clip() {

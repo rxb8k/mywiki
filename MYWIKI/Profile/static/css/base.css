@@ -16,8 +16,9 @@ body {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 100% 100%;
+  margin: 0px;
+  margin-top: 100px;
 }
-
 
 a {
   text-decoration: none;
@@ -31,12 +32,12 @@ nav {
 .navbar {
   display: flex;
   justify-content: flex-end;
-  padding: 0px 10px 0px 10px;
+  padding: 0px 10px 0px 5px;
   color: #C9C9C9;
 }
 .navbar_logo img {
   width: 120px;
-  height: 60px;
+  height: 50px;
   justify-content: left;
   margin: 10px 0 0 10px;
 }
