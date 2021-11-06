@@ -72,8 +72,8 @@
     </head>
 
     <body>
-        {% block navbar %} {% include "mywiki/base.html" %} {% end block %} {%
-        block photo %} {% include "./photo.html" %} {% endblock%}
+        {% block navbar %} {% include "mywiki/base.html" %} {% endblock %} {%
+        block photo %} {% include "./photo.html" %} {% endblock %}
         <form action="{url 'update' row.id}" id="form" onsubmit="">
             <!--플러스 버튼을 누르면 row 행 추가 되야-->
             <button id="addItemBtn">➕</button>
