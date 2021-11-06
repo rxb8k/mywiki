@@ -80,12 +80,10 @@
             <button id="addItemBtn" type="submit">➕</button>
             <table id="profile_tb" border="1px">
                 <tr>
-                    <th>subject</th>
-                    <th>content</th>
-                    <th>☑️</th>
-                    <th>✂️</th>
+                    <th>항목</th>
+                    <th>내용</th>
                 </tr>
-                {% for r in rows %}
+                {% for r in profile %}
                 <tr class="item1">
                     <td>{{r.row_subject}}</td>
                     <td>{{r.row_content}}</td>

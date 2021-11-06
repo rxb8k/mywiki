@@ -17,7 +17,7 @@ class Profile(models.Model):
     topic_content=models.CharField(max_length=1000, default="")
 
 
-# # 문단 모델
+# 문단 모델
 # class Topic(models.Model):
 #     topic_content=models.CharField(max_length=1000, null=False)
 #     profile=models.ForeignKey(Profile, on_delete=models.CASCADE)

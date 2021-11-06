@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
+from django.utils import timezone
 # Create your views here.
 
 def home(request):
@@ -13,7 +14,8 @@ def read(request, id):
 def update(req, id):
     profile_object=get_object_or_404(Profile, pk=id)
     if req.method=='POST':
-        profile_object.image=req.POST['image']
+        #profile_object.image=req.POST['image']
+        profile_object.image=req.FILES.get('image')
         profile_object.name=req.POST['name']
         profile_object.bdate=req.POST['bdate']
         profile_object.bplace=req.POST['bplace']
@@ -22,8 +24,14 @@ def update(req, id):
         profile_object.message=req.POST['message']
         profile_object.sns=req.POST['sns']
         profile_object.topic_content=req.POST['topic_content']
+        
+        new_history = History()
+        new_history.profile = profile_object
+        new_history.date = timezone.now()
+        new_history.writer = req.user
+        new_history.save()
         return redirect('/profile/read'+str(id), {'profile':profile_object})
-    return render(req, 'update.html')
+    return render(req, 'update.html', {'profile':profile_object})
 
 # def read(request, id):
 #     profile = get_object_or_404(Profile, pk = id)
@@ -40,10 +48,8 @@ def update(req, id):
 #     return render(request, 'read.html', 
 #     {"profile":profile, "rows":rows, "topics":topics})
 
+# def view_history(request, id):
+#     profile = get_object_or_404(Profile, pk = id)
+#     histories = History.objects.filter(profile=id)
 
-
-def view_history(request, id):
-    profile = get_object_or_404(Profile, pk = id)
-    histories = History.objects.filter(profile=id)
-
-    return render(request, 'history.html', {'profile': profile, 'histories': histories})
+    # return render(request, 'history.html', {'profile': profile, 'histories': histories})
