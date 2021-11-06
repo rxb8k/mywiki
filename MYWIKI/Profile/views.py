@@ -4,8 +4,7 @@ from django.utils import timezone
 # Create your views here.
 
 def home(request):
-    profile = get_object_or_404(Profile, pk = id)
-    return render(request, 'mainpage1.html', {'id' : profile.id})
+    return render(request, 'mainpage1.html')
 
 def read(request, id):
     profile = get_object_or_404(Profile, pk = id)
@@ -24,13 +23,14 @@ def update(req, id):
         profile_object.message=req.POST['message']
         profile_object.sns=req.POST['sns']
         profile_object.topic_content=req.POST['topic_content']
+        profile_object.save()
         
         new_history = History()
         new_history.profile = profile_object
         new_history.date = timezone.now()
         new_history.writer = req.user
         new_history.save()
-        return redirect('/profile/read'+str(id), {'profile':profile_object})
+        return redirect('/profile/read/'+str(id), {'profile':profile_object})
     return render(req, 'update.html', {'profile':profile_object})
 
 # def read(request, id):

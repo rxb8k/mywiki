@@ -62,8 +62,8 @@
       <a class="navbar_logo" href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}"></a>
     </div>
     {% if user.is_authenticated %}
-    <a href="{% url 'profile.id' %}" class="navitem">내 프로필</a>
-    <a href="{% url 'history'%}" class="navitem">기록 보기</a>
+    <a href="{% url 'read' profile.id %}" class="navitem">내 프로필</a>
+    <a href="" class="navitem">기록 보기</a>
     {% endif %}
     {% if user.is_authenticated %}
     <a href="{% url 'logout' %}">로그 아웃</a>
@@ -119,86 +119,56 @@
 
 
 
-  <form id="form" onsubmit="" method="post" action="{% url 'update' %}">
+  <form id="form" onsubmit="" method="POST" action="{% url 'update' profile.id %}">
     <!--플러스 버튼을 누르면 row 행 추가 되야-->
     {%csrf_token%}
-    <button id="addItemBtn">➕</button>
-    <table id="profile_tb" border="1px">
       <tr>
         <th>subject</th>
         <th>content</th>
-        <th>☑️</th>
-        <th>✂️</th>
       </tr>
       <tr class="item1">
-        <input type="text" placeholder="ex) 이름 입력💭" value="{{profile.name}}" /><button class="addBtn">➕</button>
-        </td>
-        <td><input type="text" /></td>
-        <td><input type="checkbox" /></td>
-        <td><button class="delBtn">삭제</button></td>
+          <td>이름 입력💭</td>
+        <td><input type="text" name="name" value="{{profile.name}}" /></td>
       </tr>
       <tr class="item2">
-        <td>
-          <input type="text" placeholder="ex) 생일 입력🎂" value="{{profile.bdate}}" /><button class="addBtn">➕</button>
-        </td>
-        <td><input type="text" /></td>
-        <td><input type="checkbox" /></td>
-        <td><button class="delBtn">삭제</button></td>
-      </tr>
+        <td>생일 입력🎂</td>
+        <td><input type="text" name="bdate" value="{{profile.bdate}}"/>
+      </td>
+          </tr>
       <tr class="item3">
-        <td>
-          <input type="text" placeholder="ex) 출생지🌐" value="{{profile.bplace}}" /><button class="addBtn">
-            ➕
-          </button>
+        <td>출생지🌐
         </td>
-        <td><input type="text" /></td>
-        <td><input type="checkbox" /></td>
-        <td><button class="delBtn">삭제</button></td>
+        <td><input type="text" name="bplace" value="{{profile.bplace}}"/></td>
       </tr>
       <tr class="item4">
-        <td>
-          <input type="text" placeholder="ex) 소속🏛" value="{{profile.organ}}" /><button class="addBtn">
-            ➕
-          </button>
+        <td>소속🏛
         </td>
-        <td><input type="text" /></td>
-        <td><input type="checkbox" /></td>
-        <td><button class="delBtn">삭제</button></td>
+        <td>
+            <input type="text" name="organ" value="{{profile.organ}}"/></td>
       </tr>
       <tr class="item5">
-        <td>
-          <input type="text" placeholder="ex) mbti♥️" value="{{profile.mbti}}" /><button class="addBtn">
-            ➕
-          </button>
+        <td>mbti♥️
         </td>
-        <td><input type="text" /></td>
-        <td><input type="checkbox" /></td>
-        <td><button class="delBtn">삭제</button></td>
+        <td><input type="text" name="mbti" value="{{profile.mbti}}"/></td>
       </tr>
       <tr class="item6">
-        <td>
-          <input type="text" placeholder="ex) 가치관💭" value="{{profile.message}}" /><button class="addBtn">
-            ➕
-          </button>
+        <td>가치관💭
         </td>
-        <td><input type="text" /></td>
-        <td><input type="checkbox" /></td>
-        <td><button class="delBtn">삭제</button></td>
+        <td><input type="text" name="message" value="{{profile.message}}"/></td>
       </tr>
       <tr class="item7">
-        <td>
-          <input type="text" placeholder="ex) SNS📱" value="{{profile.sns}}" /><button class="addBtn">
-            ➕
-          </button>
+        <td>SNS📱
         </td>
-        <td><input type="text" /></td>
-        <td><input type="checkbox" /></td>
-        <td><button class="delBtn">삭제</button></td>
+        <td>
+          <input type="text" name="sns" value="{{profile.sns}}"/></td>
       </tr>
     </table>
-  </form>
+  방명록
+  <input type="text" name="topic_content" value="{{profile.topic_content}}"/></td>
 
   <input type="submit" value="저장">
+  </form>
+      
 
 
 
