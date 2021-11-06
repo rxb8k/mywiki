@@ -4,15 +4,23 @@ from django.conf.urls.static import static
 from django.conf import settings
 import sys
 sys.path.append("..")
+
 from Profile import views as profile_views
+from User import views as user_view
 from django.urls.conf import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', profile_views.home, name="home"),
+    
+    path('profile/read/<int:id>', profile_views.read, name="read"),
+    path('profile/update/<int:id>', profile_views.update, name="update"),
+    path('profile/history/<int:id>', profile_views.view_history, name="view_history"),
 
-    path('profile/', include('Profile.urls')),
-    path('user/', include('User.urls'))
+
+    path('user/signup', user_view.signup_view, name="signup"),
+    path('user/login', user_view.login_view, name="login"),
+    path('user/logout', user_view.logout_view, name="logout"),
     
 ]
 

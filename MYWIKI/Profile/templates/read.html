@@ -119,7 +119,7 @@
       <tr class="item3">
         <td>출생지🌐
         </td>
-        <td>>{{profile.bplace}}</td>
+        <td>{{profile.bplace}}</td>
       </tr>
       <tr class="item4">
         <td>소속🏛
@@ -142,9 +142,31 @@
         <td>{{profile.sns}}</td>
       </tr>
     </table>
-  </form>
+  </form>  <div class="bt_wrap">
+    <button type="submit"
+      style="border:0; width:120px; font-size: 18px; color: white; background-color: black; height: 43px;"><a
+        href="{% url 'update' profile.id %}">수정하기</a></button>
+    <button type="submit" style="border:0; outline: none; margin: 10px"><a href="#"
+        onclick="clip(); return false;">공유하기</a></button>
+  </div>
   방명록<br>
   {{profile.topic_content}}
+  <script type="text/javascript">
+
+    function clip() {
+
+      var url = '';
+      var textarea = document.createElement("textarea");
+      document.body.appendChild(textarea);
+      url = window.document.location.href;
+      textarea.value = url;
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      alert("URL이 복사되었습니다.")
+    }
+
+  </script>
 </body>
 
 

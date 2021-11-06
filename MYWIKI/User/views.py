@@ -22,7 +22,7 @@ def signup_view(request):
                 new_profile.username=user
                 new_profile.save()
 
-        return redirect('profile/update/'+str(id)) # update 페이지로 redirect
+        return redirect('/profile/read/'+str(new_profile.id)) # update 페이지로 redirect
     else:
         res_data['error'] = '비밀번호가 다릅니다.'
     return render(request, 'signup.html', res_data)
