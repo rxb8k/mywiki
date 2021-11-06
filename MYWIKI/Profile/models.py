@@ -5,28 +5,22 @@ sys.path.append("..")
 from django.conf import settings
 # 전체 프로필 모델
 class Profile(models.Model):
-    username=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
-    # id=models.AutoField(primary_key=True)
+    username=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     image=models.ImageField()
+    name=models.CharField(max_length=20, default="")
+    bdate=models.CharField(max_length=50, default="")
+    bplace=models.CharField(max_length=20, default="")
+    organ=models.CharField(max_length=20, default="")
+    mbti=models.CharField(max_length=5, default="")
+    message=models.CharField(max_length=20, default="")
+    sns=models.CharField(max_length=50, default="")
+    topic_content=models.CharField(max_length=1000, default="")
 
-# 테이블의 각 행별 모델
-class Row(models.Model):
-    subject=models.CharField(max_length=20, null=False)
-    content=models.CharField(max_length=50, null=False)
-    profile=models.ForeignKey(Profile, on_delete=models.CASCADE)
 
 # 문단 모델
-class Topic(models.Model):
-    topic_subject=models.CharField(max_length=10, null=False)
-    topic_content=models.CharField(max_length=1000, null=False)
-    profile=models.ForeignKey(Profile, on_delete=models.CASCADE)
-
-# 키워드 모델
-class Keyword(models.Model):
-    keyword1=models.CharField(max_length=10, null=False)
-    keyword2=models.CharField(max_length=10, null=False)
-    keyword3=models.CharField(max_length=10, null=False)
-    profile=models.ForeignKey(Profile, on_delete=models.CASCADE)
+# class Topic(models.Model):
+#     topic_content=models.CharField(max_length=1000, null=False)
+#     profile=models.ForeignKey(Profile, on_delete=models.CASCADE)
 
 # 수정 내역
 class History(models.Model):

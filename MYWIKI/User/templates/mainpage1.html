@@ -5,25 +5,25 @@
     <head>
         <meta charset="UTF-8" />
         <title>시작 페이지1</title>
-        <link rel="stylesheet" href="../static/mainpage.css" />
+        <link rel="stylesheet" href="{% static '../static/mainpage.css' %}" />
     </head>
 
     <body>
         <div id="app">
             <div id="content">
                 <div id="sunglass">
-                    <img src="{% static 'img/sunglass.png' %}" />
+                    <img id="sungl" src="{% static 'img/sungl.png' %}">    <!--선글라스 이미지 삽입-->
+                    <img id="comment" src="{% static 'img/comment.png' %}">
+                    <img id="pretty" src="{% static 'img/moon.png' %}">
+                    <img id="mario" src="{% static 'img/mario.png' %}">
                     <!--선글라스 이미지 삽입-->
-                </div>
-                <div id="comment">
-                    <p>
-                        About <br />
-                        me
-                    </p>
                 </div>
                 <div id="title">
                     <p>나의위키</p>
                 </div>
+                <div id="title2">
+                    <p>나의위키</p>
+                </div>    
             </div>
         </div>
     </body>
