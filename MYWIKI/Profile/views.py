@@ -22,9 +22,9 @@ def update(req, id):
         profile_object.message=req.POST['message']
         profile_object.sns=req.POST['sns']
         profile_object.topic_content=req.POST['topic_content']
-        return redirect('/profile/read'+str(id), {'profile':profile_object}}
+        return redirect('/profile/read'+str(id), {'profile':profile_object})
     return render(req, 'update.html')
-    
+
 # def read(request, id):
 #     profile = get_object_or_404(Profile, pk = id)
 #     rows = Row.objects.filter(profile=id)
