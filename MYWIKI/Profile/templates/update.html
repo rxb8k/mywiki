@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %} {% extends 'base.html' %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -72,8 +72,8 @@
     </head>
 
     <body>
-        {% block navbar %} {% include "mywiki/base.html" %} {% endblock %} {%
-        block photo %} {% include "./photo.html" %} {% endblock %}
+        {% block nav %} {% include "base.html" %} {% end block %}{% include
+        "photo.html" %}
         <form action="{url 'update' row.id}" id="form" onsubmit="">
             <!--플러스 버튼을 누르면 row 행 추가 되야-->
             <button id="addItemBtn">➕</button>
@@ -86,10 +86,7 @@
                 </tr>
                 <tr class="item1">
                     <td>
-                        <input
-                            type="text"
-                            placeholder="ex) 이름 입력💭"
-                        /><button class="addBtn">➕</button>
+                        <button class="addBtn">➕</button>
                     </td>
                     <td><input type="text" /></td>
                     <td><input type="checkbox" /></td>

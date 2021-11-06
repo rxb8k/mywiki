@@ -1,44 +1,41 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="{% static 'css/base.css %}" />
+        <title>나의위키</title>
+    </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="{% static 'css/base.css %}" />
-  <title>나의위키</title>
-</head>
-
-<body>
-
-  <nav class="navbar">
-    <div>
-      <a class="navbar_logo" href="{% url 'mainpage' %}"><img src="{% static 'img/logo.png' %}"></a>
-    </div>
-    {% if user.is_authenticated %}
-    <a href="{% url 'read.html' %}" class="navitem">내 프로필</a>
-    <a href="{% url 'history.html'%}" class="navitem">기록 보기</a>
-    {% endif %}
-    {% if user.is_authenticated %}
-    <a href="{% url 'logout.html' %}">로그 아웃</a>
-    {% endif %}
-    {% if not user.is_authenticated %}
-    <a href="{% url 'login.html'%}">로그인</a>
-    {% endif %}
-  </nav>
-  <script>
-    const currentLocation = location.href;
-    const navItem = document.querySelectorAll('.navitem');
-    const navLength = navItem.length;
-    for (let i = 0; i < navLength; i++) {
-      if (navItem[i].href === currentLocation) {
-        navItem[i].className = "navitem active"
-      }
-    }
-  </script>
-
-
-</body>
-
+    <body>
+        {% block content %}
+        <nav class="navbar">
+            <div>
+                <a class="navbar_logo" href="{% url 'mainpage' %}"
+                    ><img src="{% static 'img/logo.png' %}"
+                /></a>
+            </div>
+            {% if user.is_authenticated %}
+            <a href="{% url 'read' %}" class="navitem">내 프로필</a>
+            <a href="{% url 'history'%}" class="navitem">기록 보기</a>
+            {% endif %} {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">로그아웃</a>
+            {% endif %} {% if not user.is_authenticated %}
+            <a href="{% url 'login' %}">로그인</a>
+            {% endif %}
+        </nav>
+        <script>
+            const currentLocation = location.href;
+            const navItem = document.querySelectorAll(".navitem");
+            const navLength = navItem.length;
+            for (let i = 0; i < navLength; i++) {
+                if (navItem[i].href === currentLocation) {
+                    navItem[i].className = "navitem active";
+                }
+            }
+        </script>
+        {% endblock %}
+    </body>
 </html>
