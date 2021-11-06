@@ -1,13 +1,10 @@
 from django.shortcuts import redirect, render
 from django.contrib import auth
 from .models import User
-from Profile.models import Profile, Row, Topic
+from Profile.models import Profile
 from django.contrib.auth.decorators import login_required
 #from django.contrib.auth import get_user_model
 #User = get_user_model()
-
-def home(request):
-    return render(request, 'mainpage1.html')
 
 #회원가입
 def signup_view(request):
@@ -23,44 +20,7 @@ def signup_view(request):
 
                 new_profile = Profile()
                 new_profile.username=user
-
-                row_aboutme1 = Row()
-                row_aboutme1.profile = new_profile
-                row_aboutme1.subject = "About me"
-                row_aboutme1.content = ""
-
-                row_aboutme2 = Row()
-                row_aboutme2.profile = new_profile
-                row_aboutme2.subject = "About me1"
-                row_aboutme2.content = ""
-
-                row_aboutme3 = Row()
-                row_aboutme3.profile = new_profile
-                row_aboutme3.subject = "About me2"
-                row_aboutme3.content = ""
-
-                topic_aboutme1=Topic()
-                topic_aboutme1.profile=new_profile
-                topic_aboutme1.topic_subject="About me1"
-                topic_aboutme1.topic_content=""
-
-                topic_aboutme2=Topic()
-                topic_aboutme2.profile=new_profile
-                topic_aboutme2.topic_subject="About me1"
-                topic_aboutme2.topic_content=""
-
-                topic_aboutme3=Topic()
-                topic_aboutme3.profile=new_profile
-                topic_aboutme3.topic_subject="About me1"
-                topic_aboutme3.topic_content=""
-
                 new_profile.save()
-                row_aboutme1.save()
-                row_aboutme2.save()
-                row_aboutme3.save()
-                topic_aboutme1.save()
-                topic_aboutme2.save()
-                topic_aboutme3.save()
 
         return redirect('profile/update/'+str(id)) # update 페이지로 redirect
     else:

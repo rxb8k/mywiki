@@ -1,137 +1,279 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>나의위키</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <script
-            src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"
-            type="text/javascript"
-        ></script>
 
-        <script type="text/javascript">
-            $(document).ready(function () {
-                // ➕ 버튼 클릭시
-                $("#addItemBtn").click(function () {
-                    // item 의 최대번호 구하기
-                    var lastItemNo = $("#profile_tb tr:last")
-                        .attr("class")
-                        .replace("item", "");
+<head>
+  <title>나의위키</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
 
-                    var newitem = $("#profile_tb tr:eq(1)").clone();
-                    newitem.removeClass();
-                    newitem.find("td:eq(0)").attr("rowspan", "1");
-                    newitem.addClass("item" + (parseInt(lastItemNo) + 1));
+  <script type="text/javascript">
+    $(document).ready(function () {
+      // ➕ 버튼 클릭시
+      $("#addItemBtn").click(function () {
+        // item 의 최대번호 구하기
+        var lastItemNo = $("#profile_tb tr:last")
+          .attr("class")
+          .replace("item", "");
 
-                    $("#profile_tb").append(newitem);
-                });
-                // 항목추가 버튼 클릭시
+        var newitem = $("#profile_tb tr:eq(1)").clone();
+        newitem.removeClass();
+        newitem.find("td:eq(0)").attr("rowspan", "1");
+        newitem.addClass("item" + (parseInt(lastItemNo) + 1));
 
-                $(".addBtn").live("click", function () {
-                    var clickedRow = $(this).parent().parent();
-                    var cls = clickedRow.attr("class");
+        $("#profile_tb").append(newitem);
+      });
 
-                    // tr 복사해서 마지막에 추가
-                    var newrow = clickedRow.clone();
-                    newrow.find("td:eq(0)").remove();
-                    newrow.insertAfter($("#profile_tb ." + cls + ":last"));
+      // 삭제버튼 클릭시
+      $(".delBtn").live("click", function () {
+        var clickedRow = $(this).parent().parent();
+        var cls = clickedRow.attr("class");
 
-                    // rowspan 조정
-                    resizeRowspan(cls);
-                });
+        // 각 항목의 첫번째 row를 삭제한 경우 다음 row에 td 하나를 추가해 준다.
+        if (clickedRow.find("td:eq(0)").attr("rowspan")) {
+          if (clickedRow.next().hasClass(cls)) {
+            clickedRow
+              .next()
+              .prepend(clickedRow.find("td:eq(0)"));
+          }
+        }
 
-                // 삭제버튼 클릭시
-                $(".delBtn").live("click", function () {
-                    var clickedRow = $(this).parent().parent();
-                    var cls = clickedRow.attr("class");
+        clickedRow.remove();
 
-                    // 각 항목의 첫번째 row를 삭제한 경우 다음 row에 td 하나를 추가해 준다.
-                    if (clickedRow.find("td:eq(0)").attr("rowspan")) {
-                        if (clickedRow.next().hasClass(cls)) {
-                            clickedRow
-                                .next()
-                                .prepend(clickedRow.find("td:eq(0)"));
-                        }
-                    }
+        // rowspan 조정
+        resizeRowspan(cls);
+      });
+      // cls : rowspan 을 조정할 class ex) item1, item2, ...
+      function resizeRowspan(cls) {
+        var rowspan = $("." + cls).length;
+        $("." + cls + ":first td:eq(0)").attr("rowspan", rowspan);
+      }
+    });
+  </script>
+  <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/photo.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/update.css' %}" />
+</head>
 
-                    clickedRow.remove();
+<body>
+  <!-- 네비게이션 -->
+  <nav class="navbar">
+    <div>
+      <a class="navbar_logo" href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}"></a>
+    </div>
+    {% if user.is_authenticated %}
+    <a href="{% url 'read' profile.id %}" class="navitem">내 프로필</a>
+    <a href="" class="navitem">기록 보기</a>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <a href="{% url 'logout' %}">로그 아웃</a>
+    {% endif %}
+    {% if not user.is_authenticated %}
+    <a href="{% url 'login'%}">로그인</a>
+    {% endif %}
+  </nav>
 
-                    // rowspan 조정
-                    resizeRowspan(cls);
-                });
-                // cls : rowspan 을 조정할 class ex) item1, item2, ...
-                function resizeRowspan(cls) {
-                    var rowspan = $("." + cls).length;
-                    $("." + cls + ":first td:eq(0)").attr("rowspan", rowspan);
-                }
-            });
-        </script>
-        <link rel="stylesheet" href="{% static 'css/base.css' %}" />
-        <link rel="stylesheet" href="{% static 'css/photo.css' %}" />
-        <link rel="stylesheet" href="{% static 'css/update.css' %}" />
-    </head>
+  <script>
+    const currentLocation = location.href;
+    const navItem = document.querySelectorAll('.navitem');
+    const navLength = navItem.length;
+    for (let i = 0; i < navLength; i++) {
+      if (navItem[i].href === currentLocation) {
+        navItem[i].className = "navitem active"
+      }
+    }
+  </script>
 
-    <body>
-        {% block navbar %} {% include "mywiki/base.html" %} {% endblock %} {%
-        block photo %} {% include "./photo.html" %} {% endblock %}
-        <form action="{url 'update' row.id}" id="form" onsubmit="">
-            <!--플러스 버튼을 누르면 row 행 추가 되야-->
-            <button id="addItemBtn">➕</button>
-            <table id="profile_tb" border="1px">
-                <tr>
-                    <th>subject</th>
-                    <th>content</th>
-                    <th>☑️</th>
-                    <th>✂️</th>
-                </tr>
-                <tr class="item1">
-                    <td>
-                        <input
-                            type="text"
-                            placeholder="ex) 이름 입력💭"
-                        /><button class="addBtn">➕</button>
-                    </td>
-                    <td><input type="text" /></td>
-                    <td><input type="checkbox" /></td>
-                    <td><button class="delBtn">삭제</button></td>
-                </tr>
-                <tr class="item2">
-                    <td>
-                        <input
-                            type="text"
-                            placeholder="ex) 생일 입력🎂"
-                        /><button class="addBtn">➕</button>
-                    </td>
-                    <td><input type="text" /></td>
-                    <td><input type="checkbox" /></td>
-                    <td><button class="delBtn">삭제</button></td>
-                </tr>
-                <tr class="item3">
-                    <td>
-                        <input type="text" placeholder="ex) 출생지🌐" /><button
-                            class="addBtn"
-                        >
-                            ➕
-                        </button>
-                    </td>
-                    <td><input type="text" /></td>
-                    <td><input type="checkbox" /></td>
-                    <td><button class="delBtn">삭제</button></td>
-                </tr>
-            </table>
-        </form>
-        <button onclick="submitForm()">저장</button>
-        <script>
-            function submitForm() {
-                const form = document.getElementById("form");
-                form.submit();
-            }
-            let btns = document.querySelectorAll("button");
-            for (i in btns) {
-                btns[i].setAttribute("type", "button");
-                console.log(btns[i]);
-            }
-        </script>
-    </body>
+
+
+  <!-- 사진 업로드 -->
+  <div class="container">
+    <div class="image-upload" id="image-upload">
+      <form method="post" enctype="multipart/form-data">
+        <div class="button">
+          <label for="chooseFile">사진 : </label>
+        </div>
+        <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)"
+          value="{{profile.image}}" />
+      </form>
+
+      <div class="fileContainer">
+        <div class="fileInput">
+          <p>FILE NAME:</p>
+          <p id="fileName"></p>
+        </div>
+        <div class="buttonContainer">
+          <div class="submitButton" id="submitButton">Upload</div>
+        </div>
+      </div>
+    </div>
+    <div class="image-show" id="image-show"></div>
+  </div>
+
+  <form>
+    <input type="text" class="profile_txt" />
+    <button class="btn_submit">추가</button>
+  </form>
+  <ul class="profile_list"></ul>
+  </section>
+
+
+
+  <form id="form" onsubmit="" method="POST" action="{% url 'update' profile.id %}">
+    <!--플러스 버튼을 누르면 row 행 추가 되야-->
+    {%csrf_token%}
+      <tr>
+        <th>subject</th>
+        <th>content</th>
+      </tr>
+      <tr class="item1">
+          <td>이름 입력💭</td>
+        <td><input type="text" name="name" value="{{profile.name}}" /></td>
+      </tr>
+      <tr class="item2">
+        <td>생일 입력🎂</td>
+        <td><input type="text" name="bdate" value="{{profile.bdate}}"/>
+      </td>
+          </tr>
+      <tr class="item3">
+        <td>출생지🌐
+        </td>
+        <td><input type="text" name="bplace" value="{{profile.bplace}}"/></td>
+      </tr>
+      <tr class="item4">
+        <td>소속🏛
+        </td>
+        <td>
+            <input type="text" name="organ" value="{{profile.organ}}"/></td>
+      </tr>
+      <tr class="item5">
+        <td>mbti♥️
+        </td>
+        <td><input type="text" name="mbti" value="{{profile.mbti}}"/></td>
+      </tr>
+      <tr class="item6">
+        <td>가치관💭
+        </td>
+        <td><input type="text" name="message" value="{{profile.message}}"/></td>
+      </tr>
+      <tr class="item7">
+        <td>SNS📱
+        </td>
+        <td>
+          <input type="text" name="sns" value="{{profile.sns}}"/></td>
+      </tr>
+    </table>
+  방명록
+  <input type="text" name="topic_content" value="{{profile.topic_content}}"/></td>
+
+  <input type="submit" value="저장">
+  </form>
+      
+
+
+
+  <script>
+    function submitForm() {
+      const form = document.getElementById("form");
+      form.submit();
+    }
+    let btns = document.querySelectorAll("button");
+    for (i in btns) {
+      btns[i].setAttribute("type", "button");
+      console.log(btns[i]);
+    }
+  </script>
+  <script>
+    //코멘트 작성
+
+    function warnEmpty() {
+      alert("내용을 입력해주세요.");
+    }
+
+    function dateToString(date) {
+      const dateString = date.toISOString();
+      const dateToString = dateString.substring(0, 10);
+      return dateToString;
+    }
+
+    function submitReview() {
+      const newreviewEL = document.getElementById("new-review");
+      const newreview = newreviewEL.value.trim();
+
+      if (newreview) {
+        const starEL = document.createElement('div');
+        const starString = starReview(document.getElementById);
+        starEL.innerText = starString;
+
+        const dateEL = document.createElement('div');
+        dateEL.classList.add('review-date');
+        const dateString = dateToString(new Date());
+        dateEL.innerText = dateString;
+
+        const contentEL = document.createElement('div');
+        contentEL.classList.add('review-content');
+        contentEL.innerText = newreview;
+
+        const br = document.createElement('div');
+        br.innerHTML = "<hr><br><br>"
+
+        const name = document.createElement('div');
+        name.innerHTML = "익명 &emsp;"
+
+        const reviewEL = document.createElement('div');
+        reviewEL.classList.add('review-row');
+        reviewEL.appendChild(br);
+        reviewEL.appendChild(name);
+        reviewEL.appendChild(starEL);
+        reviewEL.appendChild(dateEL);
+        reviewEL.appendChild(contentEL);
+
+        document.getElementById('review').appendChild(reviewEL);
+        newreviewEL.value = "";
+
+        const countEL = document.getElementById('review-count');
+        const count = countEL.innerText;
+        countEL.innerText = parseInt(count) + 1;
+      } else {
+        warnEmpty();
+      }
+    }
+  </script>
+</body>
+<script>
+  //사진 첨부 js
+  var submit = document.getElementById("submitButton");
+  submit.onclick = showImage; //Submit 버튼 클릭시 이미지 보여주기
+
+  function showImage() {
+    var newImage =
+      document.getElementById("image-show").lastElementChild;
+    newImage.style.visibility = "visible";
+
+    document.getElementById("image-upload").style.visibility =
+      "hidden";
+
+    document.getElementById("fileName").textContent = null; //기존 파일 이름 지우기
+  }
+  function loadFile(input) {
+    var file = input.files[0];
+
+    var name = document.getElementById("fileName");
+    name.textContent = file.name;
+
+    var newImage = document.createElement("img");
+    newImage.setAttribute("class", "img");
+
+    newImage.src = URL.createObjectURL(file);
+
+    newImage.style.width = "70%";
+    newImage.style.height = "70%";
+    newImage.style.visibility = "hidden"; //버튼을 누르기 전까지는 이미지 숨기기
+    newImage.style.objectFit = "contain";
+
+    var container = document.getElementById("image-show");
+    container.appendChild(newImage);
+  }
+</script>
+
 </html>
-{% block footer %} {% include "mywiki/footer.html" %} {% endblock %}
