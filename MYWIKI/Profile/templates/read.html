@@ -72,11 +72,9 @@
     </head>
 
     <body>
-        {#
-        <!-- {% block navbar %} {% include "./MYWIKI/base.html" %} {% endblock %} {%
-        block photo %} {% include "partials/photo.html" %} {% endblock %} {% if
-        user.is_authenticated %} -->
-        #}
+        {% comment %} {% block navbar %} {% include "./MYWIKI/base.html" %} {%
+        endblock %} {% block photo %} {% include "partials/photo.html" %} {%
+        endblock %} {% endcomment %} {% if user.is_authenticated %}
         <form action="{url 'update' row.id}">
             <!--플러스 버튼을 누르면 row 행 추가 되야-->
             <button id="addItemBtn" type="submit">➕</button>
@@ -124,9 +122,10 @@
                 </tr>
             </table>
         </form>
-        {% endif %}} {% if not user.is_authenticated %}
+        {% endif %}{% if not user.is_authenticated %}
         <a href="{% url 'login.html'%}"></a>
         {% endif %}
     </body>
 </html>
-{% block footer %} {% include "mywiki/footer.html" %} {% endblock %}
+{% comment %} {% block footer %} {% include "mywiki/footer.html" %} {% endblock
+%} {% endcomment %}
