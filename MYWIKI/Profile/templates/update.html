@@ -1,113 +1,137 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <title>나의위키</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script
+            src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"
+            type="text/javascript"
+        ></script>
 
-<head>
-  <title>나의위키</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                // ➕ 버튼 클릭시
+                $("#addItemBtn").click(function () {
+                    // item 의 최대번호 구하기
+                    var lastItemNo = $("#profile_tb tr:last")
+                        .attr("class")
+                        .replace("item", "");
 
-  <script type="text/javascript">
-    $(document).ready(function () {
-      // ➕ 버튼 클릭시
-      $("#addItemBtn").click(function () {
-        // item 의 최대번호 구하기
-        var lastItemNo = $("#profile_tb tr:last").attr("class").replace("item", "");
+                    var newitem = $("#profile_tb tr:eq(1)").clone();
+                    newitem.removeClass();
+                    newitem.find("td:eq(0)").attr("rowspan", "1");
+                    newitem.addClass("item" + (parseInt(lastItemNo) + 1));
 
-        var newitem = $("#profile_tb tr:eq(1)").clone();
-        newitem.removeClass();
-        newitem.find("td:eq(0)").attr("rowspan", "1");
-        newitem.addClass("item" + (parseInt(lastItemNo) + 1));
+                    $("#profile_tb").append(newitem);
+                });
+                // 항목추가 버튼 클릭시
 
-        $("#profile_tb").append(newitem);
-      });
-      // 항목추가 버튼 클릭시
+                $(".addBtn").live("click", function () {
+                    var clickedRow = $(this).parent().parent();
+                    var cls = clickedRow.attr("class");
 
-      $(".addBtn").live("click", function () {
-        var clickedRow = $(this).parent().parent();
-        var cls = clickedRow.attr("class");
+                    // tr 복사해서 마지막에 추가
+                    var newrow = clickedRow.clone();
+                    newrow.find("td:eq(0)").remove();
+                    newrow.insertAfter($("#profile_tb ." + cls + ":last"));
 
-        // tr 복사해서 마지막에 추가
-        var newrow = clickedRow.clone();
-        newrow.find("td:eq(0)").remove();
-        newrow.insertAfter($("#profile_tb ." + cls + ":last"));
+                    // rowspan 조정
+                    resizeRowspan(cls);
+                });
 
-        // rowspan 조정
-        resizeRowspan(cls);
-      });
+                // 삭제버튼 클릭시
+                $(".delBtn").live("click", function () {
+                    var clickedRow = $(this).parent().parent();
+                    var cls = clickedRow.attr("class");
 
-      // 삭제버튼 클릭시
-      $(".delBtn").live("click", function () {
-        var clickedRow = $(this).parent().parent();
-        var cls = clickedRow.attr("class");
+                    // 각 항목의 첫번째 row를 삭제한 경우 다음 row에 td 하나를 추가해 준다.
+                    if (clickedRow.find("td:eq(0)").attr("rowspan")) {
+                        if (clickedRow.next().hasClass(cls)) {
+                            clickedRow
+                                .next()
+                                .prepend(clickedRow.find("td:eq(0)"));
+                        }
+                    }
 
-        // 각 항목의 첫번째 row를 삭제한 경우 다음 row에 td 하나를 추가해 준다.
-        if (clickedRow.find("td:eq(0)").attr("rowspan")) {
-          if (clickedRow.next().hasClass(cls)) {
-            clickedRow.next().prepend(clickedRow.find("td:eq(0)"));
-          }
-        }
+                    clickedRow.remove();
 
-        clickedRow.remove();
+                    // rowspan 조정
+                    resizeRowspan(cls);
+                });
+                // cls : rowspan 을 조정할 class ex) item1, item2, ...
+                function resizeRowspan(cls) {
+                    var rowspan = $("." + cls).length;
+                    $("." + cls + ":first td:eq(0)").attr("rowspan", rowspan);
+                }
+            });
+        </script>
+        <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/photo.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/update.css' %}" />
+    </head>
 
-        // rowspan 조정
-        resizeRowspan(cls);
-      });
-      // cls : rowspan 을 조정할 class ex) item1, item2, ...
-      function resizeRowspan(cls) {
-        var rowspan = $("." + cls).length;
-        $("." + cls + ":first td:eq(0)").attr("rowspan", rowspan);
-      }
-    });
-  </script>
-  <link rel="stylesheet" href="{% static 'css/base.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/photo.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/update.css' %}" />
-</head>
-
-
-<body>
-  {% block navbar %}
-  {% include "mywiki/base.html" %}
-  {% end block %}
-  {% block photo %}
-  {% include "./photo.html" %}
-  {% endblock%}
-  <form action="{url 'update' row.id}">
-    <!--플러스 버튼을 누르면 row 행 추가 되야-->
-    <button id="addItemBtn" type="submit">➕</button>
-    <table id="profile_tb" border="1px">
-      <tr>
-        <th>subject</th>
-        <th>content</th>
-        <th>☑️</th>
-        <th>✂️</th>
-      </tr>
-      <tr class="item1">
-        <td><input type="text" placeholder="ex) 이름 입력💭" /><button class="addBtn">➕</button></td>
-        <td><input type="text" /></td>
-        <td><input type="checkbox" /></td>
-        <td><button class="delBtn">삭제</button></td>
-      </tr>
-      <tr class="item2">
-        <td><input type="text" placeholder="ex) 생일 입력🎂" /><button class="addBtn">➕</button></td>
-        <td><input type="text" /></td>
-        <td><input type="checkbox" /></td>
-        <td><button class="delBtn">삭제</button></td>
-      </tr>
-      <tr class="item3">
-        <td><input type="text" placeholder="ex) 출생지🌐" /><button class="addBtn">➕</button></td>
-        <td><input type="text" /></td>
-        <td><input type="checkbox" /></td>
-        <td><button class="delBtn">삭제</button></td>
-      </tr>
-    </table>
-  </form>
-
-
-</body>
-
+    <body>
+        {% block navbar %} {% include "mywiki/base.html" %} {% endblock %} {%
+        block photo %} {% include "./photo.html" %} {% endblock %}
+        <form action="{url 'update' row.id}" id="form" onsubmit="">
+            <!--플러스 버튼을 누르면 row 행 추가 되야-->
+            <button id="addItemBtn">➕</button>
+            <table id="profile_tb" border="1px">
+                <tr>
+                    <th>subject</th>
+                    <th>content</th>
+                    <th>☑️</th>
+                    <th>✂️</th>
+                </tr>
+                <tr class="item1">
+                    <td>
+                        <input
+                            type="text"
+                            placeholder="ex) 이름 입력💭"
+                        /><button class="addBtn">➕</button>
+                    </td>
+                    <td><input type="text" /></td>
+                    <td><input type="checkbox" /></td>
+                    <td><button class="delBtn">삭제</button></td>
+                </tr>
+                <tr class="item2">
+                    <td>
+                        <input
+                            type="text"
+                            placeholder="ex) 생일 입력🎂"
+                        /><button class="addBtn">➕</button>
+                    </td>
+                    <td><input type="text" /></td>
+                    <td><input type="checkbox" /></td>
+                    <td><button class="delBtn">삭제</button></td>
+                </tr>
+                <tr class="item3">
+                    <td>
+                        <input type="text" placeholder="ex) 출생지🌐" /><button
+                            class="addBtn"
+                        >
+                            ➕
+                        </button>
+                    </td>
+                    <td><input type="text" /></td>
+                    <td><input type="checkbox" /></td>
+                    <td><button class="delBtn">삭제</button></td>
+                </tr>
+            </table>
+        </form>
+        <button onclick="submitForm()">저장</button>
+        <script>
+            function submitForm() {
+                const form = document.getElementById("form");
+                form.submit();
+            }
+            let btns = document.querySelectorAll("button");
+            for (i in btns) {
+                btns[i].setAttribute("type", "button");
+                console.log(btns[i]);
+            }
+        </script>
+    </body>
 </html>
-{% block footer %}
-{% include "mywiki/footer.html" %}
-{% endblock %}
+{% block footer %} {% include "mywiki/footer.html" %} {% endblock %}
