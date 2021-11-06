@@ -1,0 +1,151 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>나의위키</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      // ➕ 버튼 클릭시
+      $("#addItemBtn").click(function () {
+        // item 의 최대번호 구하기
+        var lastItemNo = $("#profile_tb tr:last")
+          .attr("class")
+          .replace("item", "");
+
+        var newitem = $("#profile_tb tr:eq(1)").clone();
+        newitem.removeClass();
+        newitem.find("td:eq(0)").attr("rowspan", "1");
+        newitem.addClass("item" + (parseInt(lastItemNo) + 1));
+
+        $("#profile_tb").append(newitem);
+      });
+      // 항목추가 버튼 클릭시
+
+      $(".addBtn").live("click", function () {
+        var clickedRow = $(this).parent().parent();
+        var cls = clickedRow.attr("class");
+
+        // tr 복사해서 마지막에 추가
+        var newrow = clickedRow.clone();
+        newrow.find("td:eq(0)").remove();
+        newrow.insertAfter($("#profile_tb ." + cls + ":last"));
+
+        // rowspan 조정
+        resizeRowspan(cls);
+      });
+
+      // 삭제버튼 클릭시
+      $(".delBtn").live("click", function () {
+        var clickedRow = $(this).parent().parent();
+        var cls = clickedRow.attr("class");
+
+        // 각 항목의 첫번째 row를 삭제한 경우 다음 row에 td 하나를 추가해 준다.
+        if (clickedRow.find("td:eq(0)").attr("rowspan")) {
+          if (clickedRow.next().hasClass(cls)) {
+            clickedRow
+              .next()
+              .prepend(clickedRow.find("td:eq(0)"));
+          }
+        }
+
+        clickedRow.remove();
+
+        // rowspan 조정
+        resizeRowspan(cls);
+      });
+      // cls : rowspan 을 조정할 class ex) item1, item2, ...
+      function resizeRowspan(cls) {
+        var rowspan = $("." + cls).length;
+        $("." + cls + ":first td:eq(0)").attr("rowspan", rowspan);
+      }
+    });
+  </script>
+  <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/photo.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/read.css' %}" />
+</head>
+
+<body>
+  <!-- 네비게이션 -->
+  <nav class="navbar">
+    <div>
+      <a class="navbar_logo" href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}"></a>
+    </div>
+    {% if user.is_authenticated %}
+    <a href="{% url 'read' profile.id %}" class="navitem">내 프로필</a>
+    <a href="" class="navitem">기록 보기</a>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <a href="{% url 'logout' %}">로그 아웃</a>
+    {% endif %}
+    {% if not user.is_authenticated %}
+    <a href="{% url 'login'%}">로그인</a>
+    {% endif %}
+  </nav>
+
+  <script>
+    const currentLocation = location.href;
+    const navItem = document.querySelectorAll('.navitem');
+    const navLength = navItem.length;
+    for (let i = 0; i < navLength; i++) {
+      if (navItem[i].href === currentLocation) {
+        navItem[i].className = "navitem active"
+      }
+    }
+  </script>
+
+
+  <form action="">
+    <!--플러스 버튼을 누르면 row 행 추가 되야-->
+
+    <table id="profile_tb" border="1px">
+      <tr>
+        <th>subject</th>
+        <th>content</th>
+      </tr>
+      <tr class="item1">
+        <td>이름 입력💭</td>
+        <td>{{profile.name}}</td></tr>
+      </tr>
+      <tr class="item2">
+        <td>생일 입력🎂</td>
+        <td>{{profile.bdate}}</td></tr>
+      </tr>
+      <tr class="item3">
+        <td>출생지🌐
+        </td>
+        <td>>{{profile.bplace}}</td>
+      </tr>
+      <tr class="item4">
+        <td>소속🏛
+        </td>
+        <td>{{profile.organ}}</td>
+      </tr>
+      <tr class="item5">
+        <td>mbti♥️
+        </td>
+        <td>{{profile.mbti}}</td>
+      </tr>
+      <tr class="item6">
+        <td>가치관💭
+        </td>
+        <td>{{profile.message}}</td>
+      </tr>
+      <tr class="item7">
+        <td>SNS📱
+        </td>
+        <td>{{profile.sns}}</td>
+      </tr>
+    </table>
+  </form>
+  방명록<br>
+  {{profile.topic_content}}
+</body>
+
+
+</html>
