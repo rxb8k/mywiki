@@ -1,34 +1,50 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>회원가입 페이지</title>
-</head>
+    <head>
+        <meta charset="UTF-8" />
+        <title>회원가입 페이지</title>
+    </head>
 
-<body>
-    <div id="app">
+    <body>
+        <div id="app">
+            <div id="head">
+                <p>SIGN UP</p>
+            </div>
 
-        <div id="head">
-            <p>SIGN UP</p>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div id="form_box">
+                    <label for="username">ID</label>
+                    <input
+                        id="username"
+                        type="text"
+                        name="username"
+                        placeholder="ID"
+                    />
+                </div>
+                <div id="form_box">
+                    <label for="password1">PW</label>
+                    <input
+                        id="password1"
+                        type="password"
+                        name="password1"
+                        placeholder="PASSWORD"
+                    />
+                </div>
+                <div id="form_box">
+                    <label for="password2">PW CHECK</label>
+                    <input
+                        id="password2"
+                        type="password"
+                        name="password2"
+                        placeholder="PASSWORD"
+                    />
+                </div>
+                <div id="form_box">
+                    <input type="submit" value="회원가입" class="submit-btn" />
+                </div>
+            </form>
         </div>
-        
-        <form action="" method="post">
-            <div id="form_box">
-                <label for="username">ID</label>
-                <input id="username" type="text" name="username" placeholder="ID">
-            </div>
-            <div id="form_box">
-                <label for="password1">PW</label>
-                <input id="password1" type="password" name="password1" placeholder="PASSWORD">
-            </div>
-            <div id="form_box">
-                <label for="password2">PW CHECK</label>
-                <input id="password2" type="password" name="password2" placeholder="PASSWORD">
-            </div>
-            <div id="form_box">
-                <input type="submit" value="회원가입" class="submit-btn">
-            </div>
-        </form>
-    </div>
-</body>
+    </body>
 </html>
