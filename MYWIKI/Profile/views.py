@@ -6,6 +6,9 @@ from django.utils import timezone
 def home(request):
     return render(request, 'mainpage1.html')
 
+def home2(request):
+    return render(request, 'mainpage2.html')
+
 def read(request, id):
     profile = get_object_or_404(Profile, pk = id)
     return render(request, 'read.html', {'profile': profile})

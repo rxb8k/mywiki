@@ -12,6 +12,7 @@ from django.urls.conf import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', profile_views.home, name="home"),
+    path('home', profile_views.home, name="home2"),
     
     path('profile/read/<int:id>', profile_views.read, name="read"),
     path('profile/update/<int:id>', profile_views.update, name="update"),
