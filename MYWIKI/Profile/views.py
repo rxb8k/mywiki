@@ -5,11 +5,11 @@ from django.utils import timezone
 
 def home(request):
     profile = get_object_or_404(Profile, pk = id)
-    return render(request, 'mainpage1.html', {'id':profile.id})
+    return render(request, 'mainpage1.html', {'id' : profile.id})
 
 def read(request, id):
     profile = get_object_or_404(Profile, pk = id)
-    render(request, 'read.html', {'profile': profile})
+    return render(request, 'read.html', {'profile': profile})
 
 def update(req, id):
     profile_object=get_object_or_404(Profile, pk=id)
@@ -48,8 +48,8 @@ def update(req, id):
 #     return render(request, 'read.html', 
 #     {"profile":profile, "rows":rows, "topics":topics})
 
-# def view_history(request, id):
-#     profile = get_object_or_404(Profile, pk = id)
-#     histories = History.objects.filter(profile=id)
+def view_history(request, id):
+    profile = get_object_or_404(Profile, pk = id)
+    histories = History.objects.filter(profile=id)
 
-    # return render(request, 'history.html', {'profile': profile, 'histories': histories})
+    return render(request, 'history.html', {'profile': profile, 'histories': histories})
