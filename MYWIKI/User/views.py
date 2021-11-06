@@ -62,7 +62,7 @@ def signup_view(request):
                 topic_aboutme2.save()
                 topic_aboutme3.save()
 
-        return redirect('profile/update/'+str(request.POST['username'])) # update 페이지로 redirect
+        return redirect('profile/update/'+str(id)) # update 페이지로 redirect
     else:
         res_data['error'] = '비밀번호가 다릅니다.'
     return render(request, 'signup.html', res_data)
@@ -76,7 +76,7 @@ def login_view(request):
         print(User)
         if User is not None:
             auth.login(request, User)
-            return redirect('profile/read/'+str(username)) # read 페이지로 redirect
+            return redirect('profile/read/'+str(id)) # read 페이지로 redirect
     return render(request, 'login.html') 
 
 #로그아웃

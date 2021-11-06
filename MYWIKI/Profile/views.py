@@ -35,7 +35,7 @@ def update(req, id):
             'topic_content[]':topic_content_object,
         }
 
-        return redirect('profile/update'+str(id))
+        return redirect('/profile/update'+str(id))
     return render(req, 'update.html', data)
 
 
