@@ -10,6 +10,7 @@ class Profile(models.Model):
     name=models.CharField(max_length=20, default="")
     bdate=models.CharField(max_length=50, default="")
     bplace=models.CharField(max_length=20, default="")
+    organ=models.CharField(max_length=20, default="")
     mbti=models.CharField(max_length=5, default="")
     message=models.CharField(max_length=20, default="")
     sns=models.CharField(max_length=50, default="")
