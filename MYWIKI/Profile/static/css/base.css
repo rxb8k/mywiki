@@ -1,0 +1,52 @@
+@font-face {
+  font-family: "DungGeunMo";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: "DungGeunMo";
+}
+
+body {
+  margin: 0;
+  background-image: url("../img/back.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% 100%;
+}
+
+
+a {
+  text-decoration: none;
+}
+
+nav {
+  background-color: #678AD8;
+}
+
+/*navbar*/
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0px 10px 0px 10px;
+  color: #C9C9C9;
+}
+.navbar_logo img {
+  width: 120px;
+  height: 60px;
+  justify-content: left;
+  margin: 10px 0 0 10px;
+}
+.navbar > a {
+  color: rgb(108, 91, 182);
+  font-weight: bold;
+  padding: 10px;
+}
+.navbar > a:hover {
+  color: whitesmoke;
+  background-color: black;
+}
+

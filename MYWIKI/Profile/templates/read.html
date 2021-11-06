@@ -72,13 +72,12 @@
     </head>
 
     <body>
-        {% comment %} {% block navbar %} {% include "./MYWIKI/base.html" %} {%
-        endblock %} {% block photo %} {% include "partials/photo.html" %} {%
-        endblock %} {% endcomment %} {% if user.is_authenticated %}
-        <form action="{url 'update' row.id}">
+        {% comment %} {% block navbar %} {% include "base.html" %} {% endblock
+        %} {% block photo %} {% include "photo.html" %} {% endblock %} {%
+        endcomment %}{% if user.is_authenticated %}
+        <form action="">
             <!--플러스 버튼을 누르면 row 행 추가 되야-->
             <button id="addItemBtn" type="submit">➕</button>
-
             <table id="profile_tb" border="1px">
                 <tr>
                     <th>subject</th>
@@ -86,46 +85,18 @@
                     <th>☑️</th>
                     <th>✂️</th>
                 </tr>
+                {% for r in rows %}
                 <tr class="item1">
-                    <td>
-                        <input
-                            type="text"
-                            placeholder="ex) 이름 입력💭"
-                        /><button class="addBtn">➕</button>
-                    </td>
-                    <td><input type="text" /></td>
+                    <td>{{r.row_subject}}</td>
+                    <td>{{r.row_content}}</td>
                     <td><input type="checkbox" /></td>
                     <td><button class="delBtn">삭제</button></td>
                 </tr>
-                <tr class="item2">
-                    <td>
-                        <input
-                            type="text"
-                            placeholder="ex) 생일 입력🎂"
-                        /><button class="addBtn">➕</button>
-                    </td>
-                    <td><input type="text" /></td>
-                    <td><input type="checkbox" /></td>
-                    <td><button class="delBtn">삭제</button></td>
-                </tr>
-                <tr class="item3">
-                    <td>
-                        <input type="text" placeholder="ex) 출생지🌐" /><button
-                            class="addBtn"
-                        >
-                            ➕
-                        </button>
-                    </td>
-                    <td><input type="text" /></td>
-                    <td><input type="checkbox" /></td>
-                    <td><button class="delBtn">삭제</button></td>
-                </tr>
+                {% endfor%}
             </table>
         </form>
         {% endif %}{% if not user.is_authenticated %}
-        <a href="{% url 'login.html'%}"></a>
-        {% endif %}
+        <a href="{% url 'login'%}"></a>
+        {% endif %} {% endcomment %}
     </body>
 </html>
-{% comment %} {% block footer %} {% include "mywiki/footer.html" %} {% endblock
-%} {% endcomment %}
