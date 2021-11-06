@@ -5,8 +5,7 @@ sys.path.append("..")
 from django.conf import settings
 # 전체 프로필 모델
 class Profile(models.Model):
-    username=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True)
-    # id=models.AutoField(primary_key=True)
+    username=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     image=models.ImageField()
 
 # 테이블의 각 행별 모델
