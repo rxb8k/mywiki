@@ -1,0 +1,130 @@
+html,
+body {
+  font-size: 1.5vh;
+}
+
+@font-face {
+    font-family: "DungGeunMo";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff")
+        format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  * {
+    font-family: "DungGeunMo";
+  }
+  
+
+#app {
+  position: relative;
+  margin: 10px;
+  display: block;
+  background-color: #ADA6ED;
+  height: 97vh;
+  width: 97vw;
+  border: 1px solid black;
+  border-radius: 35px;
+}
+
+#sungl {
+    position: absolute;
+    width: 5vw;
+    height: 4vh;
+    top: 27vh; 
+    left: 27vw;
+}
+
+#comment {
+    position: absolute;
+    width: 32vw;
+    height: 45vh;
+    top: 6vh;
+    left: 33vw;
+}
+
+#title > p{
+    position: absolute;
+    font-size: 8rem;
+    top: 22.5vh;
+    left: 26.3vw;
+    color: #b442e9;
+}
+
+#title2 > p{
+    position: absolute;
+    font-size: 8rem;
+    top: 21.9vh;
+    left: 25.9vw;
+}
+
+#signup{
+    position: absolute;
+    top: 50vh;
+    left: 10vw;
+    width: 20vw;
+    height: 30vh;
+    font-size: 6rem;
+    border-radius: 35px;
+}
+
+#signup2{
+    position: absolute;
+    top: 50vh;
+    left: 10vw;
+    width: 20vw;
+    height: 30vh;
+    font-size: 6rem;
+    border-radius: 35px;
+}
+
+#login {
+    position: absolute;
+    top: 50vh;
+    left: 40vw;
+    width: 20vw;
+    height: 30vh;
+    font-size: 6rem;
+    border-radius: 35px;
+}
+
+#login2 {
+    position: absolute;
+    top: 50vh;
+    left: 40vw;
+    width: 20vw;
+    height: 30vh;
+    font-size: 6rem;
+    border-radius: 35px;
+}
+
+#information {
+    position: absolute;
+    width: 30vw;
+    top: 23vh;
+    left: 70vw;
+    border-radius : 20px;
+}
+
+#information > p{
+    font-size: 1.5rem;
+    line-height: 4vh;
+}
+
+#people{
+    position: absolute;
+    transform: scale(-1,1);
+    width: 30vw;
+    height: 25vh;
+    top: 72vh;
+    left: 2vw;
+}
+
+#space{
+    position: absolute;
+    transform: scale(-1,1);
+    width: 30vw;
+    height: 30vh;
+    bottom: 67vh;
+    left: 65vw;
+}

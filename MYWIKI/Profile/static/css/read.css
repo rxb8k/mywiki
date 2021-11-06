@@ -1,28 +1,65 @@
+html,
+body {
+  font-size: 1.5vh;
+}
+
 @font-face {
-  font-family: "DungGeunMo";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff")
-      format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-* {
-  font-family: "DungGeunMo";
-  padding:0;
-  margin:0;
+    font-family: "DungGeunMo";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff")
+        format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  * {
+    font-family: "DungGeunMo";
+  }
+  
+
+#app {
+  position: relative;
+  margin: 10px;
+  display: block;
+  background-color: #ADA6ED;
+  height: 97vh;
+  width: 97vw;
+  border: 1px solid black;
+  border-radius: 35px;
 }
 
-#addItemBtn {
-  border: 0;
-  background-color: white;
+#app > form {
+    margin: 20vh 20vw 0px 20vw;
 }
 
-.addBtn {
-  border: 0;
-  background-color: white;
+#app > form > table{
+    text-align: center;
+    width: 55vw;
+    height: 30vh;
+    font-size: 4rem;
 }
 
-.delBtn {
-  border: 0;
-  background-color: white;
+button{
+    height: 5vh;
+    width: 3vw;
+    margin-left: 0.5vw;
+    background-color: #c46aee;
+    font-size: 1rem;
+    border-radius: 0.5px;
+    border-color: black;
+    font-weight: bold;
+}
+
+input {
+    height: 6vh;
+    font-size: 2rem;
+    background-color: #c46aee;
+    border-color: black;
+}
+
+input[type="checkbox"] {
+    background: #c46aee;
+}
+#check {
+    font-size: 10rem;
 }
 

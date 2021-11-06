@@ -1,0 +1,53 @@
+html,
+body {
+  font-size: 1.5vh;
+}
+
+@font-face {
+    font-family: "DungGeunMo";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff")
+        format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  * {
+    font-family: "DungGeunMo";
+  }
+  
+
+#app {
+  position: relative;
+  margin: 10px;
+  display: block;
+  background-color: #ADA6ED;
+  height: 97vh;
+  width: 97vw;
+  border: 1px solid black;
+  border-radius: 35px;
+}
+
+
+#app > button {
+    position: absolute;
+    width: 15vw;
+    height: 15vh;
+    top: 77vh;
+    left: 80vw;
+    border-radius: 20px;
+    font-size: 3rem;
+    background-color: #b442e9;
+    border: 1px solid #b442e9;
+    border-radius: 18px;
+    box-shadow : 3px 3px 3px black;
+}
+
+#app > table {
+    border-collapse: collapse;
+    border-radius: 5px;
+    border-color: #78e943;
+    margin: 20vh 10vw 0px 5vw;
+    width: 80vw;
+    font-size: 5rem;
+}
+

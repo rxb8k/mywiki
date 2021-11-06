@@ -1,45 +1,52 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <title>로그인 페이지</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 페이지</title>
+    <link rel="stylesheet" href="{% static './css/login.css' %}">
+</head>
 
-    <body>
-        <div id="app">
-            <div id="head">
-                <p>LOGIN</p>
+<body>
+    <div id="app">
+        <div id="content">
+            <img id="sungl" src="{% static 'img/sungl.png' %}">    <!--선글라스 이미지 삽입-->
+            <img id="comment" src="{% static 'img/comment.png' %}">
+            <div id="title">
+                <p>나의위키</p>
             </div>
-
+            <div id="title2">
+                <p>나의위키</p>
+            </div>
             <form action="" method="post">
                 {% csrf_token %}
-                <div id="form_box">
+                <div id="box_id">
                     <label for="username">ID</label>
-                    <input
-                        id="username"
-                        type="text"
-                        name="username"
-                        placeholder="ID"
-                    />
+                    <input id="username" type="text" name="username" placeholder="ID">
                 </div>
-                <div id="form_box">
+                <div id="box_pw">
                     <label for="password">PW</label>
-                    <input
-                        id="password"
-                        type="password"
-                        name="password"
-                        placeholder="PASSWORD"
-                    />
+                    <input id="password" type="password" name="password" placeholder="PASSWORD">
                 </div>
-                <div id="form_box">
-                    <input type="submit" value="로그인" class="submit-btn" />
-                </div>
-                <div id="form_box">
-                    <input type="submit" value="회원가입" class="submit-btn" />
+                <div id="box_bt">
+                    <input type="submit" value="LOGIN" class="submit-btn">
                 </div>
             </form>
-        </div>
-    </body>
+            <div id="information">
+                <p>나무위키는 나에 대한 공유형 위키백과 서비<br/>
+                스로 Z세대의 '자기표현' 니즈를 반영했습니<br/>
+                다. 일반적으로 문서의 편집 권한이 모든 사<br/>
+                람에게 부여된 웹사이트 또는 시스템인 나무<br/>
+                위키처럼 본인 스스로에 대한 자기소개 문서<br/>
+                를 만들고, 이를 링크를 통해 SNS 등에 공유<br/>
+                하면 지인들이 보고 설명을 추가하거나 수정<br/>
+                하며 '나에 대한 위키'를 만드는 것입니다. <br/>
+                이는 Z세대의 특징 중 하나인 '자기표현'의<br/>
+                모습을 투영한 것이며 틱톡, 유튜브 Shorts <br/>
+                등 짦은 영상에 자신을 표현하는 플랫폼이<br/>
+                유행하는 레드오션에 함께 저희팀도 수영을 <br/>
+                즐기고자 합니다.</p>
+            </div>
+        </div>           
+    </div>    
+</body>
 </html>
